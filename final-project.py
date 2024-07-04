@@ -24,3 +24,27 @@ def add_new_data_source():
         print('\n\n\n\n\n', data_sources)
     except FileNotFoundError:
         print("File not found. Please enter a valid file path.")
+
+def check_existing_information():
+    print("\nExisting Information:")
+    for i, source in enumerate(data_sources, start=1):
+        metric_info = f"Metric: {source['metric']}" if source['metric'] else "Metric: Not calculated"
+        print(f"{i}) Datasource: {source['file_path']} | {metric_info}")
+
+
+def calculate_metric():
+    if not data_sources:
+        print("No data sources available. Please add a data source first.")
+        return
+
+    print("\nSelect data source:")
+    for i, source in enumerate(data_sources, start=1):
+        print(f"{i}. {source['file_path']}")
+
+    try:
+        choice = int(input("Select data source: ").strip())
+        if choice < 1 or choice > len(data_sources):
+            raise ValueError
+    except ValueError:
+        print("Invalid choice. Please select a valid data source number.")
+        return
